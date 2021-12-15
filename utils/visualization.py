@@ -1,4 +1,7 @@
 from skimage import io
+import numpy as np
+import cv2 as cv
+import torch
 from io import BytesIO
 import matplotlib.pyplot as plt
 import os
@@ -9,53 +12,53 @@ import ipywidgets as widgets
 from IPython.display import display
 
 
-def save_stpts(ress=['1'], phys_secs=['001'], opt_secs=['00']):
-    """
-    res: list of resolutions
-    phys_secs: list of physical sections
-    opt_secs: list of optical sections
-    """
+def process_stpt_image(file_name):
+    img = io.imread(file_name)
     
-    # we will iterate over every possible combination of the elements in each list
-    for res in ress:  # iterate over resolutions 
-        os.chdir('/home/jimaxt/Shared/Notebooks/Kevin/stpt_2_imc/data/STPT-191127-1125/' + str(res) +'/')
+    # normalize image (8 bits)
+    norm_img = img.copy()
+    cv.normalize(img, norm_img, alpha=0, beta=2**8 - 1, norm_type=cv.NORM_MINMAX)
 
-        for phys_sec in phys_secs:  # iterate over physical sections
-            for opt_sec in opt_secs:  # iterate over optical sections
-                file_name = 'S' + phys_sec + '_Z' + opt_sec + '.tif'
-                img = io.imread(file_name)
-                plt.title(file_name)
-                plt.imshow(img, cmap='gray')
-                
-                img_file_name = Path(file_name).stem + ".png"
-                path = '/home/jimaxt/Shared/Notebooks/Kevin/stpt_2_imc/data/STPT/{}'.format(res)
-                Path(path).mkdir(parents=True, exist_ok=True)  # make directories if they do not exist
-                plt.savefig('{0}/{1}'.format(path, img_file_name))
-                plt.clf()
-                
-def save_imcs(secs=['01'], img_types=['TIF'], data_files=['131Xe.tif']):
-    """
-    secs: list of sections
-    img_types: what type of image to save (this will determine which directory to pull images from)
-    opt_secs: list of optical sections
-    """
-    os.chdir('/home/jimaxt/Shared/Notebooks/Kevin/stpt_2_imc/data/PROCESSED_IMC_DATA/')
-    for sec in secs:
-        pattern = re.compile('SECTION_{}_MATCH_STPT_*'.format(sec))
-        imc_sec_dirs = [f for f in os.listdir('.') if (os.path.isdir(f) and pattern.match(f))]
-        for imc_sec_dir in imc_sec_dirs: 
-            for img_type_dir in img_types:
-                for data_file in data_files:
-                    file_name = imc_sec_dir + '/{}/'.format(img_type_dir) + data_file
-                    img = io.imread(file_name)
-                    plt.title(file_name)
-                    plt.imshow(img)
-                    img_file_name = Path(file_name).stem + ".png"
-                    path = '/home/jimaxt/Shared/Notebooks/Kevin/stpt_2_imc/data/IMC/{}'.format(sec)
-                    Path(path).mkdir(parents=True, exist_ok=True)  # make directories if they do not exist
-                    plt.savefig('{0}/{1}'.format(path, img_file_name))
-                    plt.clf()
+    # Apply log transformation method
+    c = (2**8 - 1) / np.log(1 + np.max(norm_img))
 
+    log_image = c * (np.log(norm_img + 1))
+    # Specify the data type so that
+    # float value will be converted to int
+    return torch.from_numpy(log_image)
+
+def process_imc_image(file_name):
+    # read image file
+    img = cv.imread(file_name, cv.IMREAD_UNCHANGED)
+
+    # normalize image (8 bits)
+    norm_img = img.copy()
+    cv.normalize(img, norm_img, alpha=0, beta=2**8 - 1, norm_type=cv.NORM_MINMAX)
+
+    # Apply log transformation method
+    c = (2**8 - 1) / np.log(1 + np.max(norm_img))
+
+    log_image = c * (np.log(norm_img + 1))
+
+    # Specify the data type so that
+    # float value will be converted to int
+    return torch.from_numpy(log_image)
+
+def save_imc(phys_sec, grid, row, column):
+    # creates directory if doesn't exist
+    if not(os.path.isdir('processed_data/IMC/{0}'.format(str(phys_sec).zfill(2)))):
+        os.mkdir('processed_data/IMC/{0}'.format(str(phys_sec).zfill(2)))
+    torch.save(grid[row][column].double(), 'processed_data/IMC/{0}/{1}_{2}.pt'.format(str(phys_sec).zfill(2),
+                                                                             str(row).zfill(2),
+                                                                             str(column).zfill(2)))
+    
+def save_stpt(phys_sec, grid, row, column):
+    # creates directory if doesn't exist
+    if not(os.path.isdir('processed_data/STPT/{0}'.format(str(phys_sec).zfill(2)))):
+        os.mkdir('processed_data/STPT/{0}'.format(str(phys_sec).zfill(2)))    
+    torch.save(grid[row][column].clone().double(), 'processed_data/STPT/{0}/{1}_{2}.pt'.format(str(phys_sec).zfill(2),
+                                                                             str(row).zfill(2),
+                                                                             str(column).zfill(2))) 
                     
 def display_img(file, cmap='gray'):
     img = io.imread(file)
