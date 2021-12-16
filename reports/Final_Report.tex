@@ -197,8 +197,22 @@ Here we show some reconstruction results produced by our U-Net architecture. Eac
 	\caption{Physical Section 3 chunk 40/35\\ MSE: 1.8 (top), 0.3 (middle), 0.2 (bottom)}		
 \end{figure}
 
-We observed poor reconstructions overall. The reconstructions do not seem to capture the fine detail present in the ground truth images. The reconstructed image for physical section 12 chunk 30/41 in Figure 2 seemed to show slightly better results than that of Figures 3 and 4 (particularly the top reconstruction), but by a negligible amount. However, the network was able to accurately reconstruct the black background as seen in Figure 5.
+We observed poor reconstructions overall. The reconstructions do not seem to capture fine details present in ground truth images. The reconstructed image for physical section 12 chunk 30/41 in Figure 2 seemed to show slightly better results than that of Figures 3 and 4 (particularly the top reconstruction), but by a negligible amount. The network was able to accurately reconstruct the black background as seen in Figure 5.
 
+We also plotted the loss value for each epoch. The loss is constant throughout training indicating the model is not learning over epochs. This might be due to the fact that U-Net is not able to pick up on grain-like structures, since it was originally used as a cell segmentation algorithm where cells were relatively large. In future studies, it would be good to revisit the U-Net model to try and uncover why this is the case. 
+
+\subsection{PointSetGen}
+Our hardware resources prevented proper training of our PointSetGen architecture. Since the 'hourglass' version of PointSetGen contains many convolutional layers, it was very memory demanding. We tried various workarounds to evade this problem. First, we lowered the batch size to 1, but still encountered the same memory issues. Next, we converted our model and images to 32-bit floats, which removed the memory issue, but produced nan loss values due to numeric instability. We could also fix the memory issue by using PyTorch's automatic mixed precision package torch.cuda.amp, which performs some operations using torch.float32 datatype and other operations using torch.float16, depending on numerical precision demands. 
+
+We thought the numeric instability may come from model parameters going to inf, -inf or nan at some point during training. In an effort to combat numeric instability, we applied the He weight and bias initialization technique (He et al., 2015) when initializing the model parameters, which unfortunately did not resolve the problem. We also tried to lower the learning rate, but to no avail.
+
+\section{Future Directions}
+We note a significant limitation in our study. Our computing resources were very limited given the amount of time we had to complete the report, so we were not able to train for many epochs in the case of the U-Net model. Therefore, in later iterations of the project, it would be advantageous to gain access to a cluster with more computing power. In the case of our point cloud model, the numeric instability might suggest to use another point cloud architecture other than PointSetGen that is more numerically stable for our particular application, or view IMC images as something else instead of a point cloud.
+
+Some other considerations that could improve performance include hyperparameter tuning, assessing different types of loss functions such as the binary cross entropy (BCE) loss, and exploring data augmentation methods such as elastic deformation.
+
+\section{Conclusion}
+In this study, we attempted to reconstruct IMC images from STPT images, which is useful in bio-medical imaging applications for mitigating costs and reducing inconsistencies during imaging. The task involved an image preprocessing pipeline to crop raw images to smaller (256x256) chunks to comply with GPU memory constraints for exploiting parallelization. Two neural network architectures were proposed to implement the reconstruction. The first architecture was based on the well known U-Net architecture introduced by Ronneberger et al. (2015). We observed poor reconstruction results from the U-Net architecture through qualitative and quantitative analysis. U-Net reconstructed images did not pick up the fine details of ground truth IMC images and had an average reconstruction error using MSE of about 270. Moreover, the loss curve seems to fluctuate around the same value, indicating the model is not learning effectively. 
 \pagebreak
 
 \section{Additional Materials}

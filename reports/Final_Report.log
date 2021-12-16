@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  15 DEC 2021 17:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  16 DEC 2021 12:46
 entering extended mode
 **./Final_Report.tex
 (Final_Report.tex
@@ -505,7 +505,7 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 
 
 ]
-<../figures/imc_stpt_img4report.png, id=68, 696.80325pt x 289.08pt>
+<../figures/imc_stpt_img4report.png, id=76, 696.80325pt x 289.08pt>
 File: ../figures/imc_stpt_img4report.png Graphic file (type png)
 <use ../figures/imc_stpt_img4report.png>
 Package pdftex.def Info: ../figures/imc_stpt_img4report.png  used on input line
@@ -516,7 +516,7 @@ Overfull \hbox (2.95842pt too wide) in paragraph at lines 117--119
  []|  [] 
  []
 
-<../figures/sample_imc_stpt_crop.png, id=70, 703.428pt x 293.29575pt>
+<../figures/sample_imc_stpt_crop.png, id=78, 703.428pt x 293.29575pt>
 File: ../figures/sample_imc_stpt_crop.png Graphic file (type png)
 <use ../figures/sample_imc_stpt_crop.png>
 Package pdftex.def Info: ../figures/sample_imc_stpt_crop.png  used on input lin
@@ -528,7 +528,7 @@ Overfull \hbox (5.27711pt too wide) in paragraph at lines 132--134
  []
 
 [2 <../figures/imc_stpt_img4report.png> <../figures/sample_imc_stpt_crop.png>]
-<../figures/12_30_41.png, id=80, 433.62pt x 289.08pt>
+<../figures/12_30_41.png, id=88, 433.62pt x 289.08pt>
 File: ../figures/12_30_41.png Graphic file (type png)
 <use ../figures/12_30_41.png>
 Package pdftex.def Info: ../figures/12_30_41.png  used on input line 166.
@@ -538,7 +538,7 @@ Overfull \hbox (18.161pt too wide) in paragraph at lines 165--167
  []|  [] 
  []
 
-<../figures/7_40_20.png, id=81, 433.62pt x 289.08pt>
+<../figures/7_40_20.png, id=89, 433.62pt x 289.08pt>
 File: ../figures/7_40_20.png Graphic file (type png)
 <use ../figures/7_40_20.png>
 Package pdftex.def Info: ../figures/7_40_20.png  used on input line 176.
@@ -548,7 +548,7 @@ Overfull \hbox (18.161pt too wide) in paragraph at lines 175--177
  []|  [] 
  []
 
-<../figures/3_40_20.png, id=82, 433.62pt x 289.08pt>
+<../figures/3_40_20.png, id=90, 433.62pt x 289.08pt>
 File: ../figures/3_40_20.png Graphic file (type png)
 <use ../figures/3_40_20.png>
 Package pdftex.def Info: ../figures/3_40_20.png  used on input line 186.
@@ -559,7 +559,7 @@ Overfull \hbox (18.161pt too wide) in paragraph at lines 185--187
  []
 
 [3 <../figures/12_30_41.png> <../figures/7_40_20.png>]
-<../figures/10_40_35.png, id=91, 433.62pt x 289.08pt>
+<../figures/10_40_35.png, id=99, 433.62pt x 289.08pt>
 File: ../figures/10_40_35.png Graphic file (type png)
 <use ../figures/10_40_35.png>
 Package pdftex.def Info: ../figures/10_40_35.png  used on input line 196.
@@ -569,16 +569,23 @@ Overfull \hbox (18.161pt too wide) in paragraph at lines 195--197
  []|  [] 
  []
 
+[4 <../figures/3_40_20.png> <../figures/10_40_35.png>]
 No file Final_Report.bbl.
-[4 <../figures/3_40_20.png> <../figures/10_40_35.png>] (Final_Report.aux)
-Package rerunfilecheck Info: File `Final_Report.out' has not changed.
-(rerunfilecheck)             Checksum: 6C4E9601CA24C31C877EEA37E5AA86EF;2317.
+[5] (Final_Report.aux)
+
+Package rerunfilecheck Warning: File `Final_Report.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `Final_Report.out':
+(rerunfilecheck)             Before: 92EE96D817F90719A4EDC3BE81B3FA7F;2569
+(rerunfilecheck)             After:  A32EB53D0599BBA88C5A67CE73FB0AA1;2695.
  ) 
 Here is how much of TeX's memory you used:
- 13236 strings out of 478868
- 214297 string characters out of 2848809
+ 13243 strings out of 478868
+ 214385 string characters out of 2848809
  546513 words of memory out of 3000000
- 30938 multiletter control sequences out of 15000+600000
+ 30941 multiletter control sequences out of 15000+600000
  426806 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  87i,12n,94p,1004b,386s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -589,9 +596,9 @@ ucrr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
 utmb8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
 utmr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
 utmri8a.pfb>
-Output written on Final_Report.pdf (4 pages, 1093571 bytes).
+Output written on Final_Report.pdf (5 pages, 1098381 bytes).
 PDF statistics:
- 130 PDF objects out of 1000 (max. 8388607)
- 25 named destinations out of 1000 (max. 500000)
- 143 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 143 PDF objects out of 1000 (max. 8388607)
+ 29 named destinations out of 1000 (max. 500000)
+ 159 words of extra memory for PDF output out of 10000 (max. 10000000)
 
