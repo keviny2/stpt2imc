@@ -140,51 +140,72 @@ We used a U-Net architecture (Ronneberger et al., 2015) as a benchmark to our po
 
 We trained the ‘hourglass’ neural network architecture from the PointSetGen paper by Fan et al. (2016). The original aim in the paper was to reconstruct a 3D point cloud object from a single 2D image. In our application, we noted that IMC images of individual channels resembled point clouds (See Figure x) and STPT images were multi-channeled 2D images. Hence, the reconstruction task from STPT to IMC images was akin to the one described in Fan et al.
  
-We followed the architecture described in Fan et al. ReLU activation functions and batch normalization were done after convolutional layers. We diverge from Fan et al. at the last layer where we perform a point cloud rendering technique based on the gaussian equation. The output according to the original architecture in Fan et al. is an (Nx3) tensor. However, since IMC images are not truly point clouds, but 2D grayscale images, we converted the (Nx3) tensor to a 2D image using a custom point cloud rendering technique. First, we first constructed two 256x256 mesh grids using torch.meshgrid and concatenated them to a (2x256x256) tensor. Next, we extracted the x and y coordinates from the (Nx3) tensor, to form an (Nx2) tensor. We then used the gaussian equation to compute the intensity of each pixel, resulting in an (Nx256x256) tensor. This operation allowed gradients to flow through via coordinates to make training feasible. Refer to the Additional Materials for more details. We also constructed a separate multilayer-perceptron (MLP) to convolute the layer immediately prior to the final TODO: have no clue how to explain this or why I did what I did
+We followed the architecture described in Fan et al. ReLU activation functions and batch normalization were done after convolutional layers. We diverge from Fan et al. at the last layer where we perform a point cloud rendering technique based on the gaussian equation. The output according to the original architecture in Fan et al. is an (Nx3) tensor, where N is the number of points in the final point cloud. However, since IMC images are not truly point clouds, but 2D grayscale images, we converted the (Nx3) tensor outputted by the original architecture to a 2D image using a custom point cloud rendering technique (See Additional Materials).
 
 %------------------------------------------------------------------------
 \section{Results}
 
-To evaluate performance of the U-Net-based and the point cloud-based model, we selected both cropped STPT images for reconstruction. We could not use full STPT images in our model due to hardware constraints. Cropped STPT images were chosen based on how informative they were of the model’s performance (e.g., we did not choose cropped images of the black background). We ran forward passes on selected STPT images to obtain reconstructed IMC images. Each forward pass generated 40 2D grayscale images packaged in a 40-channel tensor – each channel corresponding to a different protein marker. For convenience, we only compare reconstruction on 3 randomly chosen channels. We compared each model’s reconstructed IMC image by plotting both reconstructed and ground truth images using matplotlib, and by computing mean-squared error.
+To evaluate performance of the U-Net-based and the point cloud-based model, we selected both cropped STPT images for reconstruction. We could not use full STPT images in our model due to hardware constraints. Cropped STPT images were chosen based on how informative they were of the model’s performance (e.g., we did not choose cropped images of the black background). We ran forward passes on selected STPT images to obtain reconstructed IMC images. Each forward pass generated 40 2D grayscale images packaged in a 40-channel tensor – each channel corresponding to a different protein marker. For convenience, we only compare reconstruction on 3 randomly chosen channels. We compared each model’s reconstructed IMC image by plotting both reconstructed and ground truth images using matplotlib, and by recording mean-squared error rounded to the second decimal place.
 
 
 \subsection{U-Net}
-Here we show some reconstruction results produced by our U-Net architecture. Each set of 3 reconstructions portray images of 3 randomly selected channels corresponding to a randomly chosen physical section and a selected chunk from the original image (see the Additional Materials for how to interpret chunks). Reconstructed images are on the left column and ground truth images are on the right column. 
+Here we show some reconstruction results produced by our U-Net architecture. Each set of 3 reconstructions portray images of 3 randomly selected channels corresponding to a randomly chosen physical section and a selected chunk from the original image (see the Additional Materials for how to interpret chunks). See Figures 2-5 for reconstructed and ground truth images. Reconstructed images are on the left column and ground truth images are on the right column. Each row corresponds to a reconstructed / ground truth image pair. MSE values for each reconstruction pair (top, middle, bottom) is recorded in the captions of each figure.  
 
-\begin{figure}
+\begin{figure}[!h]
 	\centering
 	\captionsetup{justification=centering}
-		\hspace*{-0.2cm}	
-		\includegraphics[scale=0.35]{../figures/12_30_41.png}
-	\caption{Physical Section 12 chunk 30/41}		
+		\hspace*{-1cm}
+		\includegraphics[scale=0.65]{../figures/12_30_41.png}
+	\caption{Physical Section 12 chunk 30/41\\ MSE: 207.42 (top), 276.92 (middle), 264.55 (bottom)}		
 \end{figure}
 
-\begin{figure}
+\vspace*{0.05cm}
+
+\begin{figure}[!h]
 	\centering
 	\captionsetup{justification=centering}
-		\hspace*{-0.2cm}	
-		\includegraphics[scale=0.35]{../figures/7_40_20.png}
-	\caption{Physical Section 7 chunk 40/20}		
+		\hspace*{-1cm}
+		\includegraphics[scale=0.65]{../figures/7_40_20.png}
+	\caption{Physical Section 7 chunk 40/20\\ MSE: 288.13 (top), 269.04 (middle), 274.63 (bottom)}		
 \end{figure}
 
-\begin{figure}
+\vspace*{0.05cm}
+
+\begin{figure}[!h]
 	\centering
 	\captionsetup{justification=centering}
-		\hspace*{-0.2cm}	
-		\includegraphics[scale=0.35]{../figures/3_40_20.png}
-	\caption{Physical Section 3 chunk 40/20}		
+		\hspace*{-1cm}	
+		\includegraphics[scale=0.65]{../figures/3_40_20.png}
+	\caption{Physical Section 3 chunk 40/20\\ MSE: 243.47 (top), 277.61 (middle), 272.33 (bottom)}		
 \end{figure}
+
+\vspace*{0.05cm}
+
+\begin{figure}[!h]
+	\centering
+	\captionsetup{justification=centering}
+		\hspace*{-1cm}	
+		\includegraphics[scale=0.65]{../figures/10_40_35.png}
+	\caption{Physical Section 3 chunk 40/35\\ MSE: 1.8 (top), 0.3 (middle), 0.2 (bottom)}		
+\end{figure}
+
+We observed poor reconstructions overall. The reconstructions do not seem to capture the fine detail present in the ground truth images. The reconstructed image for physical section 12 chunk 30/41 in Figure 2 seemed to show slightly better results than that of Figures 3 and 4 (particularly the top reconstruction), but by a negligible amount. However, the network was able to accurately reconstruct the black background as seen in Figure 5.
 
 \pagebreak
 
 \section{Additional Materials}
 \subsection{Rendering Point Clouds as a 2D image}
-Let uv be a tensor with shape (HxWx2) and xy be a tensor with shape (Nx2). The following piece of code describes the gaussian equation to compute the intensity of each pixel. The result is a (256x256) image.
+First, we first constructed two 256x256 mesh grids using torch.meshgrid and concatenated them to a (2x256x256) tensor. Next, we extracted the x and y coordinates from the (Nx3) tensor, to form an (Nx2) tensor. We then used the gaussian equation to compute the intensity of each pixel, resulting in an (Nx256x256) tensor. This operation allowed gradients to flow through via coordinates to make training feasible. Refer to the Additional Materials for more details. We also constructed a separate multilayer-perceptron (MLP) that applies a convolutional layer to the last hidden layer of the neural network and outputs a (40xN) tensor. Finally, we perform element-wise multiplication between the tensor from the gaussian equation operation and the tensor from the MLP, ultimately giving us a (40x256x256) tensor; 40 2D images of size (256x256) for each protein marker. 
+
+
+Generally speaking, let uv be a tensor with shape (HxWx2), xy be a tensor with shape (Nx2) and x be a tensor with shape (CxN). The following piece of code describes the gaussian equation to compute the intensity of each pixel. The result is a (40x256x256) image, provided the MLP outputs a 40-channeled tensor.
 
 \begin{verbatim}
-	torch.exp(((uv[None,:,:,0]-xy[:,None,None,0])**2
-	+ (uv[None,:,:,1]-xy[:,None,None,1])**2)
-	/ (xy[:,None,None,2]**2+1))
+	torch.exp(((uv[None,:,:,0]
+	            -xy[:,None,None,0])**2
+	    + (uv[None,:,:,1]
+	       -xy[:,None,None,1])**2)
+	    / (xy[:,None,None,2]**2+1)) * MLP(x)
 \end{verbatim}
 
 \subsection{Chunks}

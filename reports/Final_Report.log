@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  15 DEC 2021 13:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  15 DEC 2021 16:04
 entering extended mode
 **./Final_Report.tex
 (Final_Report.tex
@@ -505,7 +505,7 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 
 
 ]
-<../figures/imc_stpt_img4report.png, id=60, 696.80325pt x 289.08pt>
+<../figures/imc_stpt_img4report.png, id=68, 696.80325pt x 289.08pt>
 File: ../figures/imc_stpt_img4report.png Graphic file (type png)
 <use ../figures/imc_stpt_img4report.png>
 Package pdftex.def Info: ../figures/imc_stpt_img4report.png  used on input line
@@ -517,80 +517,72 @@ Overfull \hbox (2.95842pt too wide) in paragraph at lines 117--119
  []
 
 [2 <../figures/imc_stpt_img4report.png>]
+<../figures/12_30_41.png, id=77, 433.62pt x 289.08pt>
+File: ../figures/12_30_41.png Graphic file (type png)
+<use ../figures/12_30_41.png>
+Package pdftex.def Info: ../figures/12_30_41.png  used on input line 158.
+(pdftex.def)             Requested size: 281.84966pt x 187.89977pt.
 
-LaTeX Warning: File `../figures/12_30_41.png' not found on input line 158.
-
-
-! Package pdftex.def Error: File `../figures/12_30_41.png' not found: using dra
-ft setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.158 ...hics[scale=0.35]{../figures/12_30_41.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `../figures/7_40_20.png' not found on input line 166.
-
-
-! Package pdftex.def Error: File `../figures/7_40_20.png' not found: using draf
-t setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.166 ...phics[scale=0.35]{../figures/7_40_20.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-
-LaTeX Warning: File `../figures/3_40_20.png' not found on input line 174.
-
-
-! Package pdftex.def Error: File `../figures/3_40_20.png' not found: using draf
-t setting.
-
-See the pdftex.def package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.174 ...phics[scale=0.35]{../figures/3_40_20.png}
-                                                  
-Try typing  <return>  to proceed.
-If that doesn't work, type  X <return>  to quit.
-
-[3]
-Overfull \hbox (50.86406pt too wide) in paragraph at lines 188--188
-[]\OT1/pcr/m/n/10 torch.exp(((uv[None,:,:,0]-xy[:,None,None,0])**2[] 
+Overfull \hbox (18.161pt too wide) in paragraph at lines 157--159
+ []|  [] 
  []
 
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<../figures/7_40_20.png, id=78, 433.62pt x 289.08pt>
+File: ../figures/7_40_20.png Graphic file (type png)
+<use ../figures/7_40_20.png>
+Package pdftex.def Info: ../figures/7_40_20.png  used on input line 168.
+(pdftex.def)             Requested size: 281.84966pt x 187.89977pt.
+
+Overfull \hbox (18.161pt too wide) in paragraph at lines 167--169
+ []|  [] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<../figures/3_40_20.png, id=79, 433.62pt x 289.08pt>
+File: ../figures/3_40_20.png Graphic file (type png)
+<use ../figures/3_40_20.png>
+Package pdftex.def Info: ../figures/3_40_20.png  used on input line 178.
+(pdftex.def)             Requested size: 281.84966pt x 187.89977pt.
+
+Overfull \hbox (18.161pt too wide) in paragraph at lines 177--179
+ []|  [] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<../figures/10_40_35.png, id=80, 433.62pt x 289.08pt>
+File: ../figures/10_40_35.png Graphic file (type png)
+<use ../figures/10_40_35.png>
+Package pdftex.def Info: ../figures/10_40_35.png  used on input line 188.
+(pdftex.def)             Requested size: 281.84966pt x 187.89977pt.
+
+Overfull \hbox (18.161pt too wide) in paragraph at lines 187--189
+ []|  [] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[3 <../figures/12_30_41.png> <../figures/7_40_20.png>]
 No file Final_Report.bbl.
-[4
-
-] (Final_Report.aux)
-
-Package rerunfilecheck Warning: File `Final_Report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Final_Report.out':
-(rerunfilecheck)             Before: D815F6AD3BCCEDC8D7015B5728F53AA9;1947
-(rerunfilecheck)             After:  6C4E9601CA24C31C877EEA37E5AA86EF;2317.
+[4 <../figures/3_40_20.png> <../figures/10_40_35.png>] (Final_Report.aux)
+Package rerunfilecheck Info: File `Final_Report.out' has not changed.
+(rerunfilecheck)             Checksum: 6C4E9601CA24C31C877EEA37E5AA86EF;2317.
  ) 
 Here is how much of TeX's memory you used:
- 13308 strings out of 478868
- 216363 string characters out of 2848809
+ 13228 strings out of 478868
+ 214016 string characters out of 2848809
  546513 words of memory out of 3000000
- 30999 multiletter control sequences out of 15000+600000
+ 30932 multiletter control sequences out of 15000+600000
  426806 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 87i,12n,94p,1204b,385s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 87i,12n,94p,1004b,386s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:
 /Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eu
 rm10.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/
@@ -598,9 +590,9 @@ ucrr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
 utmb8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
 utmr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
 utmri8a.pfb>
-Output written on Final_Report.pdf (4 pages, 548742 bytes).
+Output written on Final_Report.pdf (4 pages, 657528 bytes).
 PDF statistics:
- 111 PDF objects out of 1000 (max. 8388607)
- 23 named destinations out of 1000 (max. 500000)
- 102 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 126 PDF objects out of 1000 (max. 8388607)
+ 24 named destinations out of 1000 (max. 500000)
+ 138 words of extra memory for PDF output out of 10000 (max. 10000000)
 
