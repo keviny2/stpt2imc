@@ -124,7 +124,15 @@ Considering these, we aim to construct a generative model that reconstructs IMC 
 
 While training, we found that our hardware was not able to handle STPT and IMC images because of their size. Therefore, we resorted to crop each image into smaller chunks so that our network could train on these smaller images. 
 
-First, we performed normalization and log scaling on all images. Next, for STPT images, we concatenated the two optical sections per physical section, giving an 8-channel tensor; for IMC images, we concatenated all 40 2D grayscale images, giving a 40-channel tensor. STPT images are (20800x20800) and IMC images are (18720x18720), so we resized each STPT image to (18720x18720) using torchvision.transforms.Resize to match IMC images. Finally, we used the function torch.split from the PyTorch library to crop original images into 256x256 chunks. See Additional Details for more details about chunks. We treated this collection of 256x256 chunks as our new dataset. 
+First, we performed normalization and log scaling on all images. Next, for STPT images, we concatenated the two optical sections per physical section, giving an 8-channel tensor; for IMC images, we concatenated all 40 2D grayscale images, giving a 40-channel tensor. STPT images are (20800x20800) and IMC images are (18720x18720), so we resized each STPT image to (18720x18720) using torchvision.transforms.Resize to match IMC images. Finally, we used the function torch.split from the PyTorch library to crop original images into 256x256 chunks. See Figure 2 for an example image of a chunk. See Additional Details for more details about chunks. We treated this collection of 256x256 chunks as our new dataset. 
+
+\begin{figure}[!h]
+	\centering
+	\captionsetup{justification=centering}
+		\hspace*{-0.2cm}	
+		\includegraphics[scale=0.35]{../figures/sample_imc_stpt_crop.png}
+	\caption{Cropped images from STPT (left) and IMC (right)}		
+\end{figure}
 
 
 %-------------------------------------------------------------------------
