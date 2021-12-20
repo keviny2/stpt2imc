@@ -93,7 +93,7 @@ IMC is an imaging technique that can analyze the protein abundance of a specimen
 The ability of IMC to resolve proteomic features of individual cells is crucial, since the TME is comprised of a mixture of cell-types, each varying in their protein abundance \cite{spitzer_2016_mass}. Additionally, IMC conveys spatial relationships between individual cells. This further increases its utility in TME analysis, since the spatial context in which cells operate is informative of their function in cancerous tumors \cite{baharlou_2019_mass}. In view of these capabilities, IMC can reveal biomarkers for monitoring therapy efficacy as well as  targets for antibodies in immunotherapy, making it a valuable asset in TME analysis. 
 
 \subsection{Difficulties in obtaining STPT and IMC images}
-However, it is costly to perform both STPT and IMC on the same solid tumor section. Although it is possible to first image a slice of a solid tumour using STPT and subsequently do IMC on that image slice, there are two caveats in doing this. The first is that it is difficult to align the image sets. Mechanical perturbations that take place when the vibratome slices the solid tumor during STPT and uncertainties in the exact spatial location of signals from IMC confounds the alignment process. The second is that performing both imaging techniques is expensive.
+However, it is costly to perform both STPT and IMC on the same solid tumor section. Although it is possible to first image a slice of a solid tumour using STPT and subsequently do IMC on that image slice, there are two caveats in doing this. The first is that it is difficult to align the image sets. Mechanical perturbations that take place when the vibratome slices the solid tumor during STPT and uncertainties in the exact spatial location of signals from IMC confound the alignment process. The second is that performing both imaging techniques is expensive.
 
 Considering these, we aim to construct a generative model that reconstructs IMC images from STPT images. This model will learn how to reliably relate STPT and IMC images by receiving STPT images as input and outputting reconstructed IMC images. Using our model, researchers and practitioners will be able to effectively obtain both STPT and IMC images while only incurring costs associated with STPT imaging. That’s two for the price of one!
 
@@ -133,36 +133,40 @@ First, we performed normalization and log scaling on all images. Next, for STPT 
 %-------------------------------------------------------------------------
 \subsection{U-Net}
 
-We used the U-Net architecture \cite{ronneberger_2015_unet} as a benchmark to our point-cloud inspired architecture described in the next subsection. Our network architecture was nearly the same to that of the original U-Net paper. We only differed in including batch normalization layers after each ReLU application. We used mean-squared error (MSE) and the AdamW \cite{loshchilov_2017_decoupled} optimizer with learning rate 0.001 and weight decay 0.01 for training. 10\% of the images were randomly selected to make up the validation set. We also ensured that the validation set contained images from all physical sections. Minibatches of size 64 were used and the model was trained for 10 epochs.
+We used the U-Net architecture \cite{ronneberger_2015_unet} as a benchmark to our point-cloud inspired architecture described in the next subsection. Our network architecture was nearly the same to that of the original U-Net paper. We only differed in including batch normalization layers after each ReLU application. We used mean-squared error (MSE) and the AdamW \cite{loshchilov_2017_decoupled} optimizer with learning rate 0.001 and weight decay 0.01 for training. 10\% of the images were randomly selected to make up the validation set. We also ensured that the validation set contained images from all physical sections. Minibatches of size 64 were used and the model was trained for 20 epochs.
 
 
 %-------------------------------------------------------------------------
 \subsection{PointSetGen}
 
-3D data are becoming ubiquitous because of technological advancements in applications such as robotics, autonomous driving, and virtual reality \cite{wu_2020_pointconv}. Point clouds, a collection of (x,y,z) points in Euclidean space, are one of many representations of 3D data \cite{qi_2016_pointnet}. Special considerations must be taken account when working with point clouds. For example, algorithms typically employ a symmetric function to respect the permutation invariance of point clouds. 
+3D data are becoming ubiquitous because of technological advancements in applications such as robotics, autonomous driving, and virtual reality \cite{wu_2020_pointconv}. Point clouds, a collection of (x,y,z) points in Euclidean space, are one of many representations of 3D data \cite{qi_2016_pointnet}. Special considerations must be taken into account when working with point clouds. For example, algorithms typically employ a symmetric function to respect the permutation invariance of point clouds. 
 
 We trained the ‘hourglass’ neural network architecture from the PointSetGen paper by Fan et al. \cite{fan_2016_a}. The original aim in the paper was to reconstruct a 3D point cloud object from a single colored 2D image. In our application, we noted that IMC images of individual channels resembled point clouds and STPT images were essentially multi-channeled 2D images. Hence, the reconstruction task from STPT to IMC images was akin to the one described in Fan et al.
  
-We followed the architecture described in Fan et al. ReLU activation functions and batch normalization were done after convolutional layers. We diverge from Fan et al. at the last layer where we perform a point cloud rendering technique based on the gaussian equation. The output according to the original architecture in Fan et al. is an (Nx3) tensor, where N is the number of points in the final point cloud. However, since IMC images are not truly point clouds, but 2D grayscale images, we converted the (Nx3) tensor outputted by the original architecture to a 2D image using a custom point cloud rendering technique (See Additional Materials).
+We followed the architecture described in Fan et al. ReLU activation functions and batch normalization were done after convolutional layers.  The output according to the original architecture in Fan et al. is an (Nx3) tensor, where N is the number of points in the final point cloud. However, since IMC images are not truly point clouds, but 2D grayscale images, we converted the (Nx3) tensor outputted by the original architecture to a 2D image using a custom point cloud rendering technique (See Additional Materials).
 
 %------------------------------------------------------------------------
 \section{Results}
 
-To evaluate performance of the U-Net-based and the point cloud-based model, we selected both cropped STPT images for reconstruction. We could not use full STPT images in our model due to hardware constraints. Cropped STPT images were chosen based on how informative they were of the model’s performance (e.g., we did not choose cropped images of the black background). We ran forward passes on selected STPT images to obtain reconstructed IMC images. Each forward pass generated 40 2D grayscale images packaged in a 40-channel tensor – each channel corresponding to a different protein marker. For convenience, we only compare reconstruction on 3 randomly chosen channels. We compared each model’s reconstructed IMC image by plotting both reconstructed and ground truth images using matplotlib, and by recording mean-squared error rounded to the second decimal place.
+To evaluate performance of the U-Net-based and the point cloud-based model, we selected a subset of cropped STPT images for reconstruction. Cropped STPT images were chosen based on how informative they were of the model’s performance from a visual standpoint. We ran forward passes on selected STPT images to obtain reconstructed IMC images. Each forward pass generated 40 2D grayscale images packaged in a 40-channel tensor – each channel corresponding to a different protein marker. For convenience, we only visualized reconstruction on 3 randomly chosen channels. We compared each model’s reconstructed IMC image by plotting both reconstructed and ground truth images using matplotlib, and by recording mean-squared error rounded to the second decimal place.
 
 
 \subsection{U-Net}
-Here we show some reconstruction results produced by our U-Net architecture. Each set of 3 reconstructions portray images of 3 randomly selected channels corresponding to a randomly chosen physical section and a selected chunk from the original image (see the Additional Materials for how to interpret chunks). See Figures 4-7 for reconstructed and ground truth images. Reconstructed images are on the left column and ground truth images are on the right column. Each row corresponds to a reconstructed / ground truth image pair. MSE values for each reconstruction pair (top, middle, bottom) is recorded in the captions of each figure.  
+Loss values for the U-Net model during training can be found in Figure 3. The loss is quite constant throughout training iterations, suggesting that the model is not learning. However, the loss curve does seem to exhibit a slight downward trend, but we do not believe the trend significant enough to make any conclusions. More training iterations are required to observe whether the downward trend continues. The shape of the loss curve could imply that the U-Net model was not able to pick up on the grain-like structures present in IMC images, since it was originally used in cell segmentation where cells were relatively large. 1
+
+Figures 4-7 show reconstructed and ground truth images produced by our U-Net architecture. Each set of 3 reconstructions portray images of 3 randomly selected channels corresponding to a randomly chosen physical section and a selected chunk from the original image (see the Additional Materials for how to interpret chunks). Reconstructed images are on the left column and ground truth images are on the right column. Each row corresponds to a reconstructed / ground truth image pair. MSE values for each reconstruction pair (top, middle, bottom) is recorded in the captions of each figure.  
 
 \begin{figure}
 	\centering
 	\captionsetup{justification=centering}
 		\includegraphics[scale=0.5]{../figures/unet_loss_curve.png}
-	\caption{Loss curve for U-Net model. }		
+	\caption{Loss curve for U-Net model. Mean squared error (MSE) in the y-axis and Training iteration on the x-axis}		
 \end{figure}
 
-\vspace*{0.05cm}
+%\clearpage
+We observed poor reconstructions overall. The reconstructions did not seem to capture fine details present in ground truth images. The reconstructed image for physical section 12 chunk 30/41 in Figure 7 showed slightly better results than the reconstructed image for physical section 7 chunk 40/20 and physical section 3 chunk 40/20 in Figures 4 and 5 respectively. The network was able to accurately reconstruct the black background as seen in Figure 5.
 
+\newpage 
 \begin{figure}
 	\centering
 	\captionsetup{justification=centering}
@@ -171,7 +175,6 @@ Here we show some reconstruction results produced by our U-Net architecture. Eac
 	\caption{Physical Section 7 chunk 40/20\\ MSE: 288.13 (top), 269.04 (middle), 274.63 (bottom)}		
 \end{figure}
 
-\vspace*{0.05cm}
 
 \begin{figure}
 	\centering
@@ -181,7 +184,6 @@ Here we show some reconstruction results produced by our U-Net architecture. Eac
 	\caption{Physical Section 3 chunk 40/20\\ MSE: 243.47 (top), 277.61 (middle), 272.33 (bottom)}		
 \end{figure}
 
-\vspace*{0.05cm}
 
 \begin{figure}
 	\centering
@@ -191,7 +193,6 @@ Here we show some reconstruction results produced by our U-Net architecture. Eac
 	\caption{Physical Section 3 chunk 40/35\\ MSE: 1.8 (top), 0.3 (middle), 0.2 (bottom)}		
 \end{figure}
 
-\vspace{1.4cm}
 
 \begin{figure}
 	\centering
@@ -201,28 +202,23 @@ Here we show some reconstruction results produced by our U-Net architecture. Eac
 	\caption{Physical Section 12 chunk 30/41\\ MSE: 207.42 (top), 276.92 (middle), 264.55 (bottom)}		
 \end{figure}
 
-%\clearpage
-We observed poor reconstructions overall. The reconstructions do not seem to capture fine details present in ground truth images. The reconstructed image for physical section 12 chunk 30/41 in Figure 7 seemed to show slightly better results than the reconstructed image for physical section 7 chunk 40/20 and physical section 3 chunk 40/20 in Figures 4 and 5 respectively, but by a negligible amount. The network was able to accurately reconstruct the black background as seen in Figure 5.
-
-We also plotted the loss value for each epoch (Figure 3). The loss is constant throughout training iterations, indicating the model is not learning. This might be due to the fact that U-Net is not able to pick up on grain-like structures, since it was originally used as a cell segmentation algorithm where cells were relatively large. In future studies, it is recommended to revisit the U-Net model to uncover why this is the case. 
-
-
+\newpage
 
 \subsection{PointSetGen}
-Our hardware resources prevented proper training of our PointSetGen architecture. Since the 'hourglass' version of PointSetGen contains many convolutional layers, it was very memory demanding. We tried various workarounds to evade this problem. First, we lowered the batch size to 1, but still encountered the same memory issues. Next, we converted our model and images to 32-bit floats, which removed the memory issue, but produced nan loss values due to numeric instability. We could also fix the memory issue by using PyTorch's automatic mixed precision package torch.cuda.amp, which performs some operations using torch.float32 datatype and other operations using torch.float16, depending on numerical precision demands. 
+Our hardware resources prevented proper training of our PointSetGen architecture. Since the `hourglass' version of PointSetGen contains many convolutional layers, it was very memory demanding. We tried various workarounds to evade this problem. First, we lowered the batch size to 1, but still encountered the same memory issues. Next, we converted our model and images to 32-bit floats, which removed the memory issue, but produced nan loss values due to numeric instability. We could also fix the memory issue by using PyTorch's automatic mixed precision package torch.cuda.amp, which performs some operations using torch.float32 datatype and other operations using torch.float16, depending on numerical precision demands. 
 
 We thought the numeric instability may come from model parameters going to inf, -inf or nan at some point during training. In an effort to combat numeric instability, we applied the He weight and bias initialization technique (He et al., 2015) when initializing the model parameters, which unfortunately did not resolve the problem. We also tried to lower the learning rate, but to no avail.
 
 
 \section{Future Directions}
-We note a significant limitation in our study. Our computing resources were very limited given the amount of time we had to complete the report, so we were not able to train for many epochs in the case of the U-Net model. Therefore, in later iterations of the project, it would be advantageous to gain access to a cluster with more computing power. In the case of our point cloud model, the numeric instability might suggest to use another point cloud architecture other than PointSetGen that is more numerically stable for our particular application, or view IMC images as something else instead of a point cloud.
+Our computing resources were very limited given the amount of time, so we were not able to train for many epochs in the case of the U-Net model. Therefore, in later iterations of the project, it would be advantageous to gain access to a cluster with more computing power. Greater computing power could further interrogate the slight downward trend described in Section 3.1.
 
-Some other considerations that could improve performance include hyperparameter tuning, assessing different types of loss functions such as the binary cross entropy (BCE) loss, and exploring data augmentation methods such as elastic deformation.
+In the case of our point cloud model, the numeric instability warrants additional time spent in debugging. Some other considerations that could improve performance include hyperparameter tuning, assessing different types of loss functions such as the binary cross entropy (BCE) loss, and exploring data augmentation methods such as elastic deformation.
 
 \section{Conclusion}
-In this study, we attempted to reconstruct IMC images from STPT images, which is useful in bio-medical imaging applications for mitigating costs and reducing inconsistencies during imaging. The task involved an image preprocessing pipeline to crop raw images to smaller (256x256) chunks to comply with GPU memory constraints for exploiting parallelization and implementing two separate neural network architectures to evaluate whether viewing IMC images as point clouds improved reconstruction performance.
+In this study, we attempted to reconstruct IMC images from STPT images, which is useful in bio-medical imaging applications for mitigating costs and reducing inconsistencies during imaging. We constructed an image preprocessing pipeline to crop raw images to smaller (256x256) chunks to comply with GPU memory constraints for exploiting parallelization. 
 
-Two neural network architectures were proposed to implement the reconstruction. The first architecture was based on the well known U-Net architecture introduced by Ronneberger et al. \cite{ronneberger_2015_unet}. We observed poor reconstruction results from the U-Net architecture through qualitative and quantitative analysis. U-Net reconstructed images did not pick up the fine details of ground truth IMC images and had an average reconstruction error using MSE of about 270. Moreover, the loss curve seems to fluctuate around the same value, indicating the model is not learning effectively. 
+We also implemented two separate neural network architectures to evaluate whether viewing IMC images as point clouds improved reconstruction performance. The first architecture was based on the well known U-Net architecture introduced by Ronneberger et al. \cite{ronneberger_2015_unet}. We observed poor reconstruction results from the U-Net architecture through qualitative and quantitative analysis. U-Net reconstructed images did not pick up the fine details of ground truth IMC images and had an average reconstruction error using MSE of about 270. Moreover, the loss curve seems to fluctuate around the same value, indicating the model is not learning effectively. 
 
 The second network architecture was based on PointSetGen \cite{fan_2016_a}. This architecture was substantially larger compared to U-Net, so we encountered many memory problems during training. We tried to lower batch size, change the data types of tensors, and perform automatic mixed precision training using torch.cuda.amp. Although we were able to fix the memory issue, we could not resolve the numerical instability problems that arose as a result of our workarounds. This is an ongoing area of work for us.
 
@@ -230,8 +226,6 @@ It is still ambiguous at the moment how effective a neural network can be in rec
 
 \section{Code Availability}
 Code is available at https://github.com/keviny2/stpt2imc/tree/main
-
-\section{References}
 
 
 \section{Additional Materials}
