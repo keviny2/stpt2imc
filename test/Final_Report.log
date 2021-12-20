@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  19 DEC 2021 21:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.8.26)  19 DEC 2021 21:42
 entering extended mode
 **./Final_Report.tex
 (Final_Report.tex
@@ -505,7 +505,7 @@ File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 
 
 ]
-<../figures/imc_stpt_img4report.png, id=111, 696.80325pt x 289.08pt>
+<../figures/imc_stpt_img4report.png, id=107, 696.80325pt x 289.08pt>
 File: ../figures/imc_stpt_img4report.png Graphic file (type png)
 <use ../figures/imc_stpt_img4report.png>
 Package pdftex.def Info: ../figures/imc_stpt_img4report.png  used on input line
@@ -516,7 +516,7 @@ Overfull \hbox (2.95842pt too wide) in paragraph at lines 112--114
  []|  [] 
  []
 
-<../figures/sample_imc_stpt_crop.png, id=113, 703.428pt x 293.29575pt>
+<../figures/sample_imc_stpt_crop.png, id=109, 703.428pt x 293.29575pt>
 File: ../figures/sample_imc_stpt_crop.png Graphic file (type png)
 <use ../figures/sample_imc_stpt_crop.png>
 Package pdftex.def Info: ../figures/sample_imc_stpt_crop.png  used on input lin
@@ -528,7 +528,7 @@ Overfull \hbox (5.27711pt too wide) in paragraph at lines 127--129
  []
 
 [2 <../figures/imc_stpt_img4report.png> <../figures/sample_imc_stpt_crop.png>]
-<../figures/unet_loss_curve.png, id=132, 433.62pt x 289.08pt>
+<../figures/unet_loss_curve.png, id=128, 433.62pt x 289.08pt>
 File: ../figures/unet_loss_curve.png Graphic file (type png)
 <use ../figures/unet_loss_curve.png>
 Package pdftex.def Info: ../figures/unet_loss_curve.png  used on input line 162
@@ -536,7 +536,7 @@ Package pdftex.def Info: ../figures/unet_loss_curve.png  used on input line 162
 (pdftex.def)             Requested size: 216.80946pt x 144.53964pt.
 
 [3 <../figures/unet_loss_curve.png>]
-<../figures/7_40_20.png, id=143, 433.62pt x 289.08pt>
+<../figures/7_40_20.png, id=139, 433.62pt x 289.08pt>
 File: ../figures/7_40_20.png Graphic file (type png)
 <use ../figures/7_40_20.png>
 Package pdftex.def Info: ../figures/7_40_20.png  used on input line 174.
@@ -546,7 +546,7 @@ Overfull \hbox (2.17581pt too wide) in paragraph at lines 173--175
  []|  [] 
  []
 
-<../figures/3_40_20.png, id=144, 433.62pt x 289.08pt>
+<../figures/3_40_20.png, id=140, 433.62pt x 289.08pt>
 File: ../figures/3_40_20.png Graphic file (type png)
 <use ../figures/3_40_20.png>
 Package pdftex.def Info: ../figures/3_40_20.png  used on input line 183.
@@ -556,7 +556,7 @@ Overfull \hbox (2.17581pt too wide) in paragraph at lines 182--184
  []|  [] 
  []
 
-<../figures/10_40_35.png, id=145, 433.62pt x 289.08pt>
+<../figures/10_40_35.png, id=141, 433.62pt x 289.08pt>
 File: ../figures/10_40_35.png Graphic file (type png)
 <use ../figures/10_40_35.png>
 Package pdftex.def Info: ../figures/10_40_35.png  used on input line 192.
@@ -566,7 +566,7 @@ Overfull \hbox (2.17581pt too wide) in paragraph at lines 191--193
  []|  [] 
  []
 
-<../figures/12_30_41.png, id=146, 433.62pt x 289.08pt>
+<../figures/12_30_41.png, id=142, 433.62pt x 289.08pt>
 File: ../figures/12_30_41.png Graphic file (type png)
 <use ../figures/12_30_41.png>
 Package pdftex.def Info: ../figures/12_30_41.png  used on input line 201.
@@ -585,44 +585,29 @@ Overfull \hbox (2.17581pt too wide) in paragraph at lines 200--202
 
 ]
 (Final_Report.aux)
-
-Package rerunfilecheck Warning: File `Final_Report.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `Final_Report.out':
-(rerunfilecheck)             Before: 712DC1F9922FB4B45ACED0458BDCBA36;2947
-(rerunfilecheck)             After:  DF95FD45D3F4FE62F4ABC0044397E353;2840.
+Package rerunfilecheck Info: File `Final_Report.out' has not changed.
+(rerunfilecheck)             Checksum: DF95FD45D3F4FE62F4ABC0044397E353;2840.
 Package rerunfilecheck Info: File `Final_Report.brf' has not changed.
 (rerunfilecheck)             Checksum: A07CF2E8D0675FD7FC496C799AAF3F5D;1111.
  ) 
 Here is how much of TeX's memory you used:
- 13359 strings out of 478868
- 216837 string characters out of 2848809
+ 13354 strings out of 478868
+ 216761 string characters out of 2848809
  546541 words of memory out of 3000000
- 31026 multiletter control sequences out of 15000+600000
+ 31024 multiletter control sequences out of 15000+600000
  428490 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  87i,12n,94p,1175b,510s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning (dest): name{subsection.8.2} has been referenced but does not 
-exist, replaced by a fixed one
-
-pdfTeX warning (dest): name{subsection.8.1} has been referenced but does not ex
-ist, replaced by a fixed one
-
-pdfTeX warning (dest): name{section.8} has been referenced but does not exist, 
-replaced by a fixed one
-
-{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:/U
-sers/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eurm
-10.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/uc
-rr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/ut
-mb8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/ut
-mr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/ut
-mri8a.pfb>
-Output written on Final_Report.pdf (6 pages, 1148520 bytes).
+{C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc}<C:
+/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/euler/eu
+rm10.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/
+ucrr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
+utmb8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
+utmr8a.pfb><C:/Users/kevin/AppData/Local/Programs/MiKTeX/fonts/type1/urw/times/
+utmri8a.pfb>
+Output written on Final_Report.pdf (6 pages, 1148007 bytes).
 PDF statistics:
- 229 PDF objects out of 1000 (max. 8388607)
- 53 named destinations out of 1000 (max. 500000)
- 188 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 223 PDF objects out of 1000 (max. 8388607)
+ 50 named destinations out of 1000 (max. 500000)
+ 180 words of extra memory for PDF output out of 10000 (max. 10000000)
 
