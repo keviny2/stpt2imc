@@ -1,6 +1,6 @@
 data/*
 stpt_backup_res/*
 checkpoints/*
-utils/processed_data/*
+src/processed_data/*
 .ipynb_checkpoints
 __pycache__
