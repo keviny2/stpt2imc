@@ -14,12 +14,7 @@ class STPT_IMC_ImageFolder(datasets.ImageFolder):
         self.bits = bits # num bits for each pixel in image
         self.batch_size = batch_size
         
-        # length of dataset will be the total number of files contained in all subdirectories inside self.imc_folder
-        # self.num_imgs_per_phys_sec = len(os.listdir(os.path.join(self.imc_folder, '01')))
-        # self.num_imgs = sum([len(files) for r, d, files in os.walk(self.imc_folder)])
-        # self.num_imgs = self.num_imgs_per_phys_sec * 15  # 15 physical sections
-        
-        # self.index_to_phys_sec = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]  # skip phys_sec 16
+        # map each physical section folder with number of files in it
         self.num_imgs_per_phys_sec = {}
         acc = 0
         for dirpath, dirnames, filenames in os.walk(self.imc_folder):
@@ -29,15 +24,17 @@ class STPT_IMC_ImageFolder(datasets.ImageFolder):
             acc += len(filenames)
         
         self.num_imgs = acc
-            
-        # self.index_to_phys_sec = sorted([int(name) for name in os.listdir(self.imc_folder) if os.path.isdir(name)])  # directory names are integers
     
     def get_phys_sec(self, index):
+        """Determine which physical section folder index resides
+        
+        """
         for key in list(self.num_imgs_per_phys_sec.keys()):
             if index < self.num_imgs_per_phys_sec[key]:
                 return key
             
     def get_chunk_idx(self, index):
+        "
         prev = 0
         for key in list(self.num_imgs_per_phys_sec.keys()):
             if index < self.num_imgs_per_phys_sec[key]:
@@ -59,7 +56,7 @@ class STPT_IMC_ImageFolder(datasets.ImageFolder):
         # ====== GET IMAGE FILE PATH ======
         stpt_path = os.path.join(self.stpt_folder,
                                  '{}'.format(str(phys_sec).zfill(2)),
-                                 stpt_imgs[self.get_chunk_idx(index)])  # TODO: change this mod because self.num_imgs_per_phys_sec is now a dictionary
+                                 stpt_imgs[self.get_chunk_idx(index)])
         
         imc_path = os.path.join(self.imc_folder,
                                           '{}'.format(str(phys_sec).zfill(2)),

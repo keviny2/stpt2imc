@@ -1,4 +1,5 @@
 checkpoints/*
 src/temp/*
+src/checkpoints/*
 .ipynb_checkpoints
 __pycache__
