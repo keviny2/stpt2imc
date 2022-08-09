@@ -1,2 +1,2 @@
 # stpt2imc
-Reconstruction of Imaging Mass Spectrometry (IMC) from Serial Two-Photon Tomography (STPT) 
+Deep learning model implemented using PyTorch to reconstruct Imaging Mass Spectrometry (IMC) images from Serial Two-Photon Tomography (STPT).
